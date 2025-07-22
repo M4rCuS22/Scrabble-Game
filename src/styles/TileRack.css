@@ -1,0 +1,41 @@
+.tile-track-container {
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 30px auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.tile-track-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.tile {
+  background: #fff;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  padding: 10px 16px;
+  text-align: center;
+  min-width: 60px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.letter {
+  font-size: 1.5em;
+  font-weight: bold;
+  display: block;
+}
+
+.count {
+  color: #555;
+  font-size: 1em;
+}
+
+.points {
+  color: #888;
+  font-size: 0.9em;
+}

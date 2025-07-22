@@ -1,6 +1,6 @@
 import React from 'react';
-import tileDistribution from '../data/tileDistribution';
-import '../styles/TileTrack.css';
+import tileDistribution from '../data/tileDistibution';
+import '../styles/TileRack.css';
 
 const TileTrack = () => {
   return (
