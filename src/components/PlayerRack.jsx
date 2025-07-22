@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import tileDistribution from '../data/tileDistribution';
+import tileDistribution from '../data/tileDistibution';
 import '../styles/PlayerRack.css';
 
 const PlayerRack = ({ onTileDragged }) => {

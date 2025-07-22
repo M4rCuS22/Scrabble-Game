@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import GameBoard from './components/GameBoard'
 import PlayerRack from './components/PlayerRack'
-import TileTrack from './components/TileTrack'
+import TileTrack from './components/TileRack'
 import './styles/App.css'
 
 function App() {
