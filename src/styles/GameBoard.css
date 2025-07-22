@@ -4,7 +4,7 @@
   border-radius: 8px;
   margin: 20px auto;
   max-width: 650px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
@@ -16,7 +16,7 @@
   background: #333;
   padding: 1px;
   border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .board-square {
@@ -91,7 +91,7 @@
 /* Drag and drop visual feedback */
 .board-square.drag-over {
   background-color: #f0f0f0;
-  box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 /* Responsive adjustments */
@@ -101,7 +101,7 @@
     height: 30px;
     font-size: 0.6rem;
   }
-  
+
   .game-board-container {
     max-width: 500px;
   }
