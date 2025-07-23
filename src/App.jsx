@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import GameBoard from './components/GameBoard'
 import PlayerRack from './components/PlayerRack'
 import TileTrack from './components/TileRack'
@@ -7,6 +7,8 @@ import './styles/App.css'
 function App() {
   // State to track the currently dragged tile
   const [draggedTile, setDraggedTile] = useState(null);
+  // Reference to the player rack component
+  const playerRackRef = React.useRef(null);
   // State to track player score
   const [playerScore, setPlayerScore] = useState(0);
   
@@ -30,8 +32,18 @@ function App() {
         <h2>Score: {playerScore}</h2>
       </div>
       
-      <GameBoard onScoreUpdate={handleScoreUpdate} />
-      <PlayerRack onTileDragged={handleTileDragged} />
+      <GameBoard 
+        onScoreUpdate={handleScoreUpdate} 
+        onTilePlaced={(index) => {
+          if (playerRackRef.current) {
+            playerRackRef.current.handleTilePlaced(index);
+          }
+        }} 
+      />
+      <PlayerRack 
+        onTileDragged={handleTileDragged} 
+        ref={playerRackRef} 
+      />
       <TileTrack />
     </div>
   )

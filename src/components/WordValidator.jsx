@@ -40,6 +40,15 @@ const WordValidator = ({ placedTiles, boardState, specialSquares, onValidationCo
             valid: false,
             message: `"${word}" is not a valid word.`
           });
+          
+          // Notify parent component that validation failed
+          if (onValidationComplete) {
+            onValidationComplete({
+              valid: false,
+              message: `"${word}" is not a valid word.`
+            });
+          }
+          
           break;
         }
         

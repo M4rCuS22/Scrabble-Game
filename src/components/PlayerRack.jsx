@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import tileDistribution from '../data/tileDistibution';
 import '../styles/PlayerRack.css';
 
-const PlayerRack = ({ onTileDragged, onTilePlaced }) => {
+const PlayerRack = forwardRef(({ onTileDragged }, ref) => {
   const [playerTiles, setPlayerTiles] = useState([]);
   
   // Function to draw random tiles from the distribution
@@ -45,15 +45,20 @@ const PlayerRack = ({ onTileDragged, onTilePlaced }) => {
   
   // Handle successful tile placement
   const handleTilePlaced = (index) => {
-    removeTile(index);
-    
-    // Draw a new tile to replace the one that was placed
-    const newTile = drawRandomTiles(1)[0];
-    setPlayerTiles(prevTiles => {
-      const newTiles = [...prevTiles];
-      newTiles.push(newTile);
-      return newTiles;
-    });
+    // Make sure index is valid
+    if (index >= 0 && index < playerTiles.length) {
+      // Remove the tile at the specified index
+      setPlayerTiles(prevTiles => {
+        const newTiles = [...prevTiles];
+        newTiles.splice(index, 1);
+        
+        // Draw a new tile to replace the one that was placed
+        const newTile = drawRandomTiles(1)[0];
+        newTiles.push(newTile);
+        
+        return newTiles;
+      });
+    }
   };
   
   // Handle drag end event
@@ -62,14 +67,12 @@ const PlayerRack = ({ onTileDragged, onTilePlaced }) => {
     e.target.classList.remove('dragging');
   };
   
-  // Remove a tile from the rack (will be used later when implementing drop)
-  const removeTile = (index) => {
-    setPlayerTiles(prevTiles => {
-      const newTiles = [...prevTiles];
-      newTiles.splice(index, 1);
-      return newTiles;
-    });
-  };
+  // This function was moved into handleTilePlaced
+  
+  // Expose methods to parent component
+  useImperativeHandle(ref, () => ({
+    handleTilePlaced
+  }));
   
   return (
     <div className="player-rack-container">
@@ -90,6 +93,6 @@ const PlayerRack = ({ onTileDragged, onTilePlaced }) => {
       </div>
     </div>
   );
-};
+});
 
 export default PlayerRack;

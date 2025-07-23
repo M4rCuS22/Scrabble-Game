@@ -131,8 +131,11 @@ const GameBoard = ({ onScoreUpdate, onTilePlaced }) => {
     ]);
     
     // Notify parent component that a tile was placed
-    if (onTilePlaced) {
-      onTilePlaced(parseInt(tileIndex));
+    if (onTilePlaced && tileIndex) {
+      const index = parseInt(tileIndex, 10);
+      if (!isNaN(index)) {
+        onTilePlaced(index);
+      }
     }
   };
   
