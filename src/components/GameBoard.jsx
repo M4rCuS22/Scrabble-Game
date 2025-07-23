@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/GameBoard.css';
+import WordValidator from './WordValidator';
 
-const GameBoard = () => {
+const GameBoard = ({ onScoreUpdate, onTilePlaced }) => {
   // State to track placed tiles on the board
   const [boardTiles, setBoardTiles] = useState({});
+  // State to track newly placed tiles (for validation)
+  const [newlyPlacedTiles, setNewlyPlacedTiles] = useState([]);
+  // State to track if tiles are being placed in a valid direction
+  const [placementDirection, setPlacementDirection] = useState(null); // 'horizontal', 'vertical', or null
   // Define special squares on the board
   const specialSquares = {
     // Triple Word Score
@@ -104,12 +109,31 @@ const GameBoard = () => {
     
     if (!letter) return; // Ensure we have valid data
     
-    // Update the board state with the new tile
+    // Check if placement is valid (in a line with existing tiles or first move)
     const key = `${row},${col}`;
+    const isValidPlacement = validateTilePlacement(row, col);
+    
+    if (!isValidPlacement) {
+      alert('Tiles must be placed in a straight line, adjacent to existing tiles.');
+      return;
+    }
+    
+    // Update the board state with the new tile
     setBoardTiles(prev => ({
       ...prev,
       [key]: { letter, points }
     }));
+    
+    // Add to newly placed tiles for validation
+    setNewlyPlacedTiles(prev => [
+      ...prev,
+      { row, col, letter, points }
+    ]);
+    
+    // Notify parent component that a tile was placed
+    if (onTilePlaced) {
+      onTilePlaced(parseInt(tileIndex));
+    }
   };
   
   // Create the 15x15 board
@@ -146,11 +170,113 @@ const GameBoard = () => {
     return board;
   };
 
+  // Validate that tiles are placed in a valid direction (horizontal or vertical line)
+  const validateTilePlacement = (row, col) => {
+    // If this is the first tile placed on the board or the first tile in this turn
+    if (Object.keys(boardTiles).length === 0 || newlyPlacedTiles.length === 0) {
+      return true;
+    }
+    
+    // Check if the new tile is adjacent to any existing tile
+    const adjacentPositions = [
+      `${row-1},${col}`, // above
+      `${row+1},${col}`, // below
+      `${row},${col-1}`, // left
+      `${row},${col+1}`  // right
+    ];
+    
+    const isAdjacentToExisting = adjacentPositions.some(pos => boardTiles[pos]);
+    
+    if (!isAdjacentToExisting) {
+      return false;
+    }
+    
+    // If this is the second tile placed in this turn, determine the direction
+    if (newlyPlacedTiles.length === 1) {
+      const firstTile = newlyPlacedTiles[0];
+      
+      if (row === firstTile.row) {
+        setPlacementDirection('horizontal');
+      } else if (col === firstTile.col) {
+        setPlacementDirection('vertical');
+      } else {
+        return false; // Not in a straight line
+      }
+      
+      return true;
+    }
+    
+    // For subsequent tiles, ensure they follow the established direction
+    if (placementDirection === 'horizontal') {
+      return row === newlyPlacedTiles[0].row;
+    } else if (placementDirection === 'vertical') {
+      return col === newlyPlacedTiles[0].col;
+    }
+    
+    return false;
+  };
+  
+  // Handle validation completion
+  const handleValidationComplete = (result) => {
+    if (result.valid) {
+      // Clear newly placed tiles since they're now validated
+      setNewlyPlacedTiles([]);
+      setPlacementDirection(null);
+      
+      // Update score in parent component
+      if (onScoreUpdate) {
+        onScoreUpdate(result.score);
+      }
+    } else {
+      // If invalid, remove the newly placed tiles from the board
+      const updatedBoardTiles = { ...boardTiles };
+      
+      newlyPlacedTiles.forEach(tile => {
+        const key = `${tile.row},${tile.col}`;
+        delete updatedBoardTiles[key];
+      });
+      
+      setBoardTiles(updatedBoardTiles);
+      setNewlyPlacedTiles([]);
+      setPlacementDirection(null);
+    }
+  };
+  
+  // Reset the current turn
+  const handleResetTurn = () => {
+    // Remove newly placed tiles from the board
+    const updatedBoardTiles = { ...boardTiles };
+    
+    newlyPlacedTiles.forEach(tile => {
+      const key = `${tile.row},${tile.col}`;
+      delete updatedBoardTiles[key];
+    });
+    
+    setBoardTiles(updatedBoardTiles);
+    setNewlyPlacedTiles([]);
+    setPlacementDirection(null);
+  };
+
   return (
     <div className="game-board-container">
       <h2>Scrabble Board</h2>
       <div className="game-board">
         {renderBoard()}
+      </div>
+      
+      <div className="game-controls">
+        <WordValidator 
+          placedTiles={newlyPlacedTiles}
+          boardState={boardTiles}
+          specialSquares={specialSquares}
+          onValidationComplete={handleValidationComplete}
+        />
+        
+        {newlyPlacedTiles.length > 0 && (
+          <button className="reset-turn-btn" onClick={handleResetTurn}>
+            Reset Turn
+          </button>
+        )}
       </div>
     </div>
   );

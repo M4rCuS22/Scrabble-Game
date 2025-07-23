@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import tileDistribution from '../data/tileDistibution';
 import '../styles/PlayerRack.css';
 
-const PlayerRack = ({ onTileDragged }) => {
+const PlayerRack = ({ onTileDragged, onTilePlaced }) => {
   const [playerTiles, setPlayerTiles] = useState([]);
   
   // Function to draw random tiles from the distribution
@@ -41,6 +41,19 @@ const PlayerRack = ({ onTileDragged }) => {
     if (onTileDragged) {
       onTileDragged(tile, index);
     }
+  };
+  
+  // Handle successful tile placement
+  const handleTilePlaced = (index) => {
+    removeTile(index);
+    
+    // Draw a new tile to replace the one that was placed
+    const newTile = drawRandomTiles(1)[0];
+    setPlayerTiles(prevTiles => {
+      const newTiles = [...prevTiles];
+      newTiles.push(newTile);
+      return newTiles;
+    });
   };
   
   // Handle drag end event
