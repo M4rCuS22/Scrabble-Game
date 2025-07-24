@@ -1,0 +1,154 @@
+.tutorial-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.tutorial-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Visual guide */
+.visual-guide {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.guide-step {
+  flex: 1;
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px 20px;
+}
+
+.step-number {
+  width: 30px;
+  height: 30px;
+  background: #4caf50;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.step-image {
+  width: 80px;
+  height: 80px;
+  background: #eee;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background-size: cover;
+  background-position: center;
+}
+
+.tile-image {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><rect x="10" y="10" width="60" height="60" rx="4" fill="%23f5e7c1" stroke="%23d4b483" stroke-width="2"/><text x="40" y="45" font-family="Arial" font-size="30" font-weight="bold" text-anchor="middle" fill="%23333">A</text><text x="60" y="65" font-family="Arial" font-size="12" text-anchor="middle" fill="%23666">1</text></svg>');
+}
+
+.drag-image {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><rect x="10" y="10" width="60" height="60" rx="4" fill="%23f5e7c1" stroke="%23d4b483" stroke-width="2"/><text x="40" y="45" font-family="Arial" font-size="30" font-weight="bold" text-anchor="middle" fill="%23333">A</text><path d="M60,40 L70,50 L50,50 Z" fill="%234caf50"/><path d="M65,45 L65,65 L45,65 L45,55 L55,55 L55,65" stroke="%234caf50" stroke-width="2" fill="none"/></svg>');
+}
+
+.word-image {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><rect x="5" y="25" width="20" height="20" rx="2" fill="%23f5e7c1" stroke="%23d4b483" stroke-width="1"/><text x="15" y="40" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="%23333">W</text><rect x="30" y="25" width="20" height="20" rx="2" fill="%23f5e7c1" stroke="%23d4b483" stroke-width="1"/><text x="40" y="40" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="%23333">O</text><rect x="55" y="25" width="20" height="20" rx="2" fill="%23f5e7c1" stroke="%23d4b483" stroke-width="1"/><text x="65" y="40" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="%23333">R</text><rect x="55" y="50" width="20" height="20" rx="2" fill="%23f5e7c1" stroke="%23d4b483" stroke-width="1"/><text x="65" y="65" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="%23333">D</text></svg>');
+}
+
+.score-image {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="30" fill="%234caf50" stroke="%23388e3c" stroke-width="2"/><text x="40" y="48" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="white">+10</text></svg>');
+}
+
+.step-text {
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Simple rules */
+.simple-rules {
+  list-style-type: none;
+  padding: 0;
+}
+
+.simple-rules li {
+  padding: 8px 0 8px 30px;
+  position: relative;
+}
+
+.simple-rules li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #4caf50;
+  font-weight: bold;
+}
+
+/* Special squares */
+.special-squares {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.special-square {
+  width: 120px;
+  height: 80px;
+  margin: 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.square-label {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.tw-square { background-color: #e53935; }
+.dw-square { background-color: #ff8a65; }
+.tl-square { background-color: #1e88e5; }
+.dl-square { background-color: #90caf9; }
+
+.tutorial-section {
+  margin-bottom: 30px;
+}
+
+.tutorial-section h3 {
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.start-game-button {
+  display: block;
+  width: 200px;
+  margin: 30px auto;
+  padding: 15px;
+  background-color: #4caf50;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.start-game-button:hover {
+  background-color: #388e3c;
+}
