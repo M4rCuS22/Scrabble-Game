@@ -1,11 +1,13 @@
 .game-board-container {
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 8px;
-  margin: 20px auto;
-  max-width: 650px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 0 0 20px 0;
+  background: transparent;
+  margin: 0;
   text-align: center;
+}
+
+.game-board-container h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
 }
 
 .game-board {
@@ -53,8 +55,16 @@
 }
 
 .star {
-  background: #ff8a65; /* Same as DW */
+  background: #ff5722; /* Brighter orange */
   color: white;
+  font-size: 1.2rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 87, 34, 0.7); }
+  70% { box-shadow: 0 0 0 5px rgba(255, 87, 34, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 87, 34, 0); }
 }
 
 /* Tile on board styling */
@@ -88,6 +98,20 @@
   color: #666;
 }
 
+.blank-tile {
+  background: #fff;
+  border-color: #aaa;
+}
+
+.blank-indicator {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  font-size: 0.4rem;
+  color: #999;
+  text-transform: uppercase;
+}
+
 /* Drag and drop visual feedback */
 .board-square.drag-over {
   background-color: #f0f0f0;
@@ -100,9 +124,5 @@
     width: 30px;
     height: 30px;
     font-size: 0.6rem;
-  }
-
-  .game-board-container {
-    max-width: 500px;
   }
 }
