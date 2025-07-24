@@ -1,12 +1,49 @@
-# React + Vite
+# Scrabble Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web-based Scrabble game built with React and Vite featuring drag-and-drop gameplay, real-time word validation, and authentic scoring.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Interactive 15x15 game board with special squares
+- Drag & drop tile placement
+- Real-time word validation using Dictionary API
+- Two-player turn-based gameplay
+- Authentic Scrabble scoring system
+- Blank tile support
 
-## Expanding the ESLint configuration
+## Quick Start
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev
+```
+
+## How to Play
+
+1. Drag tiles from your rack to the board
+2. Form valid words (first word must cross center star)
+3. Click "Submit Word" to validate and score
+4. New words must connect to existing tiles
+
+## Tech Stack
+
+- React 19.1.0 + Vite
+- React Router DOM
+- Context API for state management
+- Free Dictionary API for word validation
+
+## Contributors
+
+This project was developed by:
+
+- **[Marcus]** - [Scrum Leader]
+- **[Jerry]** - [App structure]
+- **[Tiara]** - [Game LOgic]
+- **[Effie]** - [Game Control]
+
+
+## Scripts
+
+- `npm run dev` - Development server
+- `npm run build` - Production build
+- `npm run lint` - Code linting
