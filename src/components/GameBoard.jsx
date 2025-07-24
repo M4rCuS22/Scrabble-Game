@@ -3,6 +3,7 @@ import { useGameContext } from '../context/GameContext';
 import { specialSquares } from '../context/GameContext';
 import '../styles/GameBoard.css';
 
+// Main component that renders the 15x15 Scrabble game board
 const GameBoard = () => {
   const { state, placeTile } = useGameContext();
 
@@ -41,6 +42,7 @@ const GameBoard = () => {
   const renderBoard = () => {
     const board = [];
     
+    // Generate all 225 squares (15x15 grid)
     for (let row = 0; row < 15; row++) {
       for (let col = 0; col < 15; col++) {
         const key = `${row},${col}`;
@@ -57,6 +59,7 @@ const GameBoard = () => {
             onDragLeave={handleDragLeave}
             onDrop={(e) => handleDrop(e, row, col)}
           >
+            {/* Render placed tile or special square label */}
             {tile ? (
               <div className={`board-tile ${tile.isBlank ? 'blank-tile' : ''}`}>
                 <span className="board-tile-letter">{tile.letter}</span>
