@@ -1,34 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import tileDistribution from '../data/tileDistibution';
+import React from 'react';
+import { useGameContext } from '../context/GameContext';
 import '../styles/PlayerRack.css';
 
-const PlayerRack = ({ onTileDragged }) => {
-  const [playerTiles, setPlayerTiles] = useState([]);
+const PlayerRack = () => {
+  const { state } = useGameContext();
+  const playerTiles = state.playerRacks[state.currentPlayer] || [];
   
-  // Function to draw random tiles from the distribution
-  const drawRandomTiles = (count) => {
-    // Create a pool of all available tiles based on their counts
-    const tilePool = [];
-    tileDistribution.forEach(tile => {
-      for (let i = 0; i < tile.count; i++) {
-        tilePool.push({ ...tile });
-      }
-    });
-    
-    // Shuffle the tile pool
-    const shuffled = [...tilePool].sort(() => 0.5 - Math.random());
-    
-    // Take the first 'count' tiles
-    return shuffled.slice(0, count);
-  };
+  // Create an array of 7 slots (filled or empty)
+  const rackSlots = Array(7).fill(null);
   
-  // Initialize player's tiles on component mount
-  useEffect(() => {
-    setPlayerTiles(drawRandomTiles(7));
-  }, []);
+  // Fill the slots with available tiles
+  playerTiles.forEach((tile, index) => {
+    rackSlots[index] = tile;
+  });
   
   // Handle drag start event
   const handleDragStart = (e, tile, index) => {
+    if (!tile) return; // Can't drag an empty slot
+    
     // Set the data being dragged
     e.dataTransfer.setData('tileIndex', index);
     e.dataTransfer.setData('tileLetter', tile.letter);
@@ -36,11 +25,6 @@ const PlayerRack = ({ onTileDragged }) => {
     
     // Add a class to style the tile being dragged
     e.target.classList.add('dragging');
-    
-    // If parent component provided a callback, call it
-    if (onTileDragged) {
-      onTileDragged(tile, index);
-    }
   };
   
   // Handle drag end event
@@ -49,29 +33,27 @@ const PlayerRack = ({ onTileDragged }) => {
     e.target.classList.remove('dragging');
   };
   
-  // Remove a tile from the rack (will be used later when implementing drop)
-  const removeTile = (index) => {
-    setPlayerTiles(prevTiles => {
-      const newTiles = [...prevTiles];
-      newTiles.splice(index, 1);
-      return newTiles;
-    });
-  };
-  
   return (
     <div className="player-rack-container">
-      <h3>Your Tiles</h3>
+      <h3>Player {state.currentPlayer + 1}'s Tiles</h3>
       <div className="player-rack">
-        {playerTiles.map((tile, index) => (
+        {rackSlots.map((tile, index) => (
           <div 
-            className="player-tile" 
-            key={index} 
-            draggable="true"
-            onDragStart={(e) => handleDragStart(e, tile, index)}
-            onDragEnd={handleDragEnd}
+            className={`player-tile-slot ${tile ? 'has-tile' : 'empty-slot'}`}
+            key={index}
           >
-            <span className="tile-letter">{tile.letter}</span>
-            <span className="tile-points">{tile.points}</span>
+            {tile && (
+              <div
+                className="player-tile"
+                draggable="true"
+                onDragStart={(e) => handleDragStart(e, tile, index)}
+                onDragEnd={handleDragEnd}
+              >
+                <span className="tile-letter">{tile.letter === 'Blank' ? '' : tile.letter}</span>
+                <span className="tile-points">{tile.points}</span>
+                {tile.letter === 'Blank' && <span className="blank-label">Blank</span>}
+              </div>
+            )}
           </div>
         ))}
       </div>
