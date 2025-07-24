@@ -1,6 +1,5 @@
-// Scrabble letter distribution and points
-// Each object represents a tile
 
+// Simplified Scrabble letter distribution and points
 const tileDistribution = [
   { letter: 'E', count: 12, points: 1 },
   { letter: 'A', count: 9, points: 1 },

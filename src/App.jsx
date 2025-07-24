@@ -1,29 +1,32 @@
-import { useState } from 'react'
-import GameBoard from './components/GameBoard'
-import PlayerRack from './components/PlayerRack'
-import TileTrack from './components/TileRack'
-import './styles/App.css'
+import React from 'react';
+import { GameProvider } from './context/GameContext';
+import GameBoard from './components/GameBoard';
+import PlayerRack from './components/PlayerRack';
+import TileRack from './components/TileRack';
+import './styles/App.css';
 
 function App() {
-  // State to track the currently dragged tile
-  const [draggedTile, setDraggedTile] = useState(null);
-  
-  // Handle tile being dragged from rack
-  const handleTileDragged = (tile, index) => {
-    setDraggedTile({ tile, rackIndex: index });
-  };
-  
   return (
-    <div className="scrabble-app">
-      <header className="app-header">
-        <h1 className="app-title">Scrabble Game</h1>
-      </header>
-      
-      <GameBoard />
-      <PlayerRack onTileDragged={handleTileDragged} />
-      <TileTrack />
-    </div>
-  )
+    <GameProvider>
+      <div className="scrabble-app">
+        <header className="app-header">
+          <h1 className="app-title">Scrabble Game</h1>
+          <p> UI Components</p>
+        </header>
+        
+        <div className="demo-container">
+          <h2>Game Board Component</h2>
+          <GameBoard />
+          
+          <h2>Player Rack Component</h2>
+          <PlayerRack />
+          
+          <h2>Tile Rack Component</h2>
+          <TileRack />
+        </div>
+      </div>
+    </GameProvider>
+  );
 }
 
-export default App
+export default App;
