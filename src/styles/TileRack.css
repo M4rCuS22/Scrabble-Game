@@ -1,41 +1,75 @@
 .tile-track-container {
-  padding: 20px;
-  background: #f9f9f9;
+  background: #f0e6d2;
   border-radius: 8px;
-  max-width: 600px;
-  margin: 30px auto;
+  padding: 8px 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-top: 10px;
 }
 
-.tile-track-grid {
+.tile-track-header {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.tile-track-header h3 {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.toggle-icon {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.tile-track-details {
+  margin-top: 10px;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.mini-tile {
+  background: #f5e7c1;
+  border: 1px solid #d4b483;
+  border-radius: 4px;
+  padding: 3px;
+  text-align: center;
+  position: relative;
+  height: 25px;
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 
-.tile {
-  background: #fff;
-  border: 2px solid #ddd;
-  border-radius: 6px;
-  padding: 10px 16px;
-  text-align: center;
-  min-width: 60px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-}
-
-.letter {
-  font-size: 1.5em;
+.mini-letter {
   font-weight: bold;
-  display: block;
+  font-size: 0.8rem;
 }
 
-.count {
-  color: #555;
-  font-size: 1em;
+.mini-count {
+  position: absolute;
+  bottom: 1px;
+  right: 2px;
+  font-size: 0.6rem;
+  color: #666;
 }
 
-.points {
-  color: #888;
-  font-size: 0.9em;
+.depleted {
+  opacity: 0.5;
+  background: #f0f0f0;
+  border-color: #ccc;
+}
+
+.tile.depleted {
+  opacity: 0.5;
+  background: #f0f0f0;
+  border-color: #ccc;
 }
